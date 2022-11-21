@@ -18,12 +18,17 @@ from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
 
 from api import views
+from api.views import ReviewDeleteView, CategoriesView
 from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = DefaultRouter()
 router.register("products", views.ProductsView, basename="products")
-
+router.register("carts", views.CartView, basename="carts")
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('token/', obtain_auth_token)
+    path('token/', obtain_auth_token),
+    path('jwt/token/', TokenObtainPairView.as_view()),
+    path('jwt/token/refresh/', TokenRefreshView.as_view()),
+    path('review-delete/<int:pk>/', ReviewDeleteView.as_view()),
 ]+router.urls
