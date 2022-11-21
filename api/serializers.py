@@ -37,14 +37,16 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class CartSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     product = serializers.CharField(read_only=True)
     user = serializers.CharField(read_only=True)
     date = serializers.CharField(read_only=True)
     status = serializers.CharField(read_only=True)
+    quantity = serializers.CharField(read_only=True)
 
     class Meta:
         model = Carts
-        fields = ["product", "user", "date", "status"]
+        fields = ["id", "product", "user", "date", "status", "quantity"]
 
     def create(self, validated_data):
         user = self.context.get('user')

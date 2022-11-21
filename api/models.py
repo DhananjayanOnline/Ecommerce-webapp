@@ -46,6 +46,7 @@ class Reviews(models.Model):
 class Carts(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=0)
     date = models.DateField(auto_now_add=True)
     options = (
         ('in-cart','in-cart'),

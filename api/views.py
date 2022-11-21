@@ -69,6 +69,28 @@ class CartView(ViewSet):
             return Response(data="deleted")
         else:
             raise serializers.ValidationError("You have no permission to perform this operation")
+    
+    @action(methods=['GET'], detail=True)
+    def add_quantity(self, request, *args, **kwargs):
+        id = kwargs.get('pk')
+        try:
+            qs = Carts.objects.get(id=id)
+            qs.quantity+=1
+            qs.save()
+        except:
+            return Response('There is no such item')
+        return Response('updated')
+
+    @action(methods=["GET"], detail=True)
+    def minus_quantity(self, request, *args, **kwargs):
+        id = kwargs.get('pk')
+        try:
+            qs = Carts.objects.get(id=id)
+            qs.quantity-=1
+            qs.save()
+        except:
+            return Response('There is no such file')
+        return Response('updated')
 
 # class ReviewDeleteView(APIView):
 #     authentication_classes = [authentication.TokenAuthentication]
