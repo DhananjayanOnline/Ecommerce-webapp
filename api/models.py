@@ -27,28 +27,6 @@ class Products(models.Model):
     @property
     def rating_count(self):
         ratings=self.reviews_set.all().values_list('rating').annotate(bit=Count('rating'))
-        # print(ratings)
-        # ratings = {}
-        # five,four,three,two,one=0,0,0,0,0
-        # rev = Reviews.objects.filter(product=self.id)
-        # for i in rev:
-        #     if i.rating==5:
-        #         five+=1
-        #     elif i.rating==4:
-        #         four+=1
-        #     elif i.rating==3:
-        #         three+=1
-        #     elif i.rating==2:
-        #         two+=1
-        #     elif i.rating==1:
-        #         one+=1
-
-        # ratings.update({5:five})
-        # ratings.update({4:four})
-        # ratings.update({3:three})
-        # ratings.update({2:two})
-        # ratings.update({1:one})
-
         return ratings
 
     def __str__(self):
